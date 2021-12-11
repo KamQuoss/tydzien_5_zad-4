@@ -1,27 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { User, UserFilter, UsersList } from "./index";
+import { getData } from "../services/fetchUsers";
 
 export default function UsersContainer() {
   const [data, setData] = useState([]);
   const [filterValue, setfilterValue] = useState("");
 
-  const getData = () => {
-    fetch("users.json", {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      }
-    })
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        setData(data);
-      });
-  };
-
   useEffect(() => {
-    getData();
+    getData().then((res) => setData(res));
   }, []);
 
   return (
